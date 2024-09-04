@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const cron = require('node-cron');
+const { CronJob } = require('cron');
 
 const scheduledMessage = {
   message: 'Drink Water!',
@@ -14,9 +14,7 @@ module.exports = {
   async execute() {
     console.log('bot is ready!');
 
-
-    const task = cron.schedule(scheduledMessage.time, () => {
-
+    const job = new CronJob(scheduledMessage.time, function() {
       const channel = scheduledMessage.channel;
 
       if (channel) {
@@ -25,12 +23,11 @@ module.exports = {
       } else {
         console.error('No channel has been set.');
       }
+    },)
 
-    });
+    job.start();
 
-    task.start();
-
-    const checkTimeUpdate = cron.schedule('*/5 * * * * *', () => {
+    const checkTimeUpdate = new CronJob('*/5 * * * * *', () => {
 
       if (scheduledMessage.time !== previousTime) {
         task.stop();
