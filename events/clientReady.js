@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { CronJob } = require('cron');
+const { CronJob, CronTime } = require('cron');
 
 const scheduledMessage = {
   message: 'Drink Water!',
@@ -30,8 +30,13 @@ module.exports = {
     const checkTimeUpdate = new CronJob('*/5 * * * * *', () => {
 
       if (scheduledMessage.time !== previousTime) {
-        task.stop();
-        task.start();
+        job.stop();
+        try {
+          job.setTime(new CronTime(scheduledMessage.time));
+        } catch {
+          console.log('the setTime command did not work. please try again');
+        }
+        job.start();
         previousTime = scheduledMessage.time;
       }
     })
