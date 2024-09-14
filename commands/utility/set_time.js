@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { scheduledMessage } = require('E:/programming/GitHub/mochibot/events/clientReady.js');
+const path = require('node:path');
+const clientReadyPath = path.join(__dirname, 'programming', 'GitHub', 'mochibot', 'events', 'clientReady.js');
+const { scheduledMessage } = require(clientReadyPath);
 
 module.exports = {
 	data: new SlashCommandBuilder()
