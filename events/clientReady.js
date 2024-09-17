@@ -3,7 +3,7 @@ const { CronJob, CronTime } = require('cron');
 
 const scheduledMessage = {
   message: 'Drink Water!',
-  time: '*/30 * * * * *',
+  time: '0 */1 * * * *',
   channel: null,
 }
 
@@ -19,7 +19,6 @@ module.exports = {
 
       if (channel) {
         channel.send(scheduledMessage.message);
-        console.log(scheduledMessage.time);
       } else {
         console.error('No channel has been set.');
       }
